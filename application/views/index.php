@@ -1,10 +1,11 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <!-- Mirrored from demo.geekslabs.com/materialize/v2.1/layout03/user-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 Aug 2015 16:06:28 GMT -->
-<? require("header.php"); ?>
+<?
+
+require("header.php");
+?>
 
 <body class="cyan">
   <!-- Start Page Loading -->
@@ -79,15 +80,21 @@ var svr_url="<?php echo base_url()?>";
         $.ajax({url: svr_url + "sys/log?data=" + JSON.stringify(data), success: function(result){
 
             var json = JSON.parse(result);
+            console.log(result);
             var status =  json.status;
+            var message =  json.message;
+            var uid =  json.userid;
 
             if(status == "ERROR"){
 
-
+console.log(status+":-"+message);
 
 
             }else{
-
+                $.ajax({url: svr_url + "sys/save_login?data=" + result, success: function(result){
+                    var userID = result;
+                    window.location.href = '<?php echo base_url("dashboard")?>';
+                }});
 
             }
         }});

@@ -3364,8 +3364,8 @@ span.badge {
 
 @font-face {
     font-family: "BYekan";
-    src: url( "../font/W_YEKAN_0.TTF" );
-    src: local( "?" ), url( "../font/W_YEKAN_0.TTF" )format( "truetype" );
+    src: url("../font/W_YEKAN_0.TTF");
+    src: local( "?" ), url("../font/W_YEKAN_0.TTF")format( "truetype" );
     font-weight: normal;
     font-style: normal;
 }
