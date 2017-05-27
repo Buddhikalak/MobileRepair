@@ -23,7 +23,10 @@ class sys extends CI_Controller
                       $data = array(
                     'status' => "SUCESS",
                     'message' => "CORRECT_USERNAME_AND_PASSWORD",
-                    'userid' => $usernames->iduser
+                    'userid' => $usernames->iduser,
+                          'user_email' => $usernames->email,
+                          'user_name' => $usernames->name
+
                 );
                 $returnVal = json_encode($data);
                 echo $returnVal;
@@ -60,12 +63,19 @@ class sys extends CI_Controller
             echo $d->userid;
             $this->load->library('session');
             $_SESSION['userID'] = $d->userid;
+            $_SESSION['user_email'] = $d->user_email;
+            $_SESSION['user_name'] = $d->user_name;
         }
 
     }
 
     function logview(){
 
+        $this->load->view('index');
+    }
+
+    function logout(){
+        $this->session->sess_destroy();
         $this->load->view('index');
     }
 

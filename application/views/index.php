@@ -4,107 +4,114 @@
 <!-- Mirrored from demo.geekslabs.com/materialize/v2.1/layout03/user-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 02 Aug 2015 16:06:28 GMT -->
 <?
 
+    if (isset($_SESSION['userID'])){
+        ?>
+        <script>
+            window.location.href ="<?php echo base_url("index.php/dashboard/")?>";
+        </script>
+
+    <?php
+
+    }else {
+?>
+
+
+<?php
 require("header.php");
 ?>
 
-<body class="cyan">
-  <!-- Start Page Loading -->
-  <div id="loader-wrapper">
-      <div id="loader"></div>
-      <div class="loader-section section-left"></div>
-      <div class="loader-section section-right"></div>
-  </div>
-  <!-- End Page Loading -->
-
-
-
-  <div id="login-page" class="row">
-    <div class="col s12 z-depth-4 card-panel">
-      <form class="login-form">
-        <div class="row">
-          <div class="input-field col s12 center">
-            <img src="images/login-logo.png" alt="" class="circle responsive-img valign profile-image-login">
-            <p class="center login-form-text">System of Mobile Repairing</p>
-          </div>
+<body class="login-page">
+<div class="login-box">
+        <div class="logo">
+                <a href="javascript:void(0);">Admin<b>Signin</b></a>
+                <small>Mobile Phone Repair system</small>
         </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="mdi-social-person-outline prefix"></i>
-            <input id="username" type="text">
-            <label for="username" class="center-align">Username</label>
-          </div>
-        </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password">
-            <label for="password">Password</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12 m12 l12  login-text">
-              <input type="checkbox" id="remember-me" />
-              <label for="remember-me">Remember me</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <a onclick="loginxxx()" class="btn waves-effect waves-light col s12">Login</a>
-          </div>
-        </div>
-        <div class="row">
-         <!-- <div class="input-field col s6 m6 l6">
-            <p class="margin medium-small"><a href="page-register.html">Register Now!</a></p>
-          </div>-->
-          <div class="input-field col s6 m6 l6">
-              <p class="margin right-align medium-small"><a href="page-forgot-password.html">Forgot password</a></p>
-          </div>
-        </div>
+        <div class="card">
+                <div class="body">
 
-      </form>
-    </div>
-  </div>
+                                <div class="msg">Sign in to start your session</div>
+                                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                                        <div class="form-line">
+                                                <input type="text" id="username" class="form-control" name="username" placeholder="Username" required autofocus>
+                                        </div>
+                                </div>
+                                <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                                        <div class="form-line">
+                                                <input type="password" id="password" class="form-control" name="password" placeholder="Password" required>
+                                        </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-xs-8 p-t-5">
+                                                <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">
+                                                <label for="rememberme">Remember Me</label>
+                                        </div>
+                                        <div class="col-xs-4">
+                                                <button class="btn btn-block bg-pink waves-effect" onclick="loginxxx()" type="button">SIGN IN</button>
+                                        </div>
+                                </div>
+                                <div class="row m-t-15 m-b--20">
+                                        <div class="col-xs-6">
+                                                <a href="sign-up.html">Register Now!</a>
+                                        </div>
+                                        <div class="col-xs-6 align-right">
+                                                <a href="forgot-password.html">Forgot Password?</a>
+                                        </div>
+                                </div>
+
+                </div>
+        </div>
+</div>
 
 
 
-  <? require("footer.php"); ?>
+
+
+<? require("footer.php"); ?>
 
 <script>
-    function loginxxx(){
-        alert("f");
-        var data  = {
-            username:$('#username').val(),
-            password:$('#password').val()
+    function loginxxx() {
+       // alert("f");
+        var data = {
+            username: $('#username').val(),
+            password: $('#password').val()
         };
-var svr_url="<?php echo base_url()?>";
-        $.ajax({url: svr_url + "sys/log?data=" + JSON.stringify(data), success: function(result){
+        var svr_url = "<?php echo base_url()?>";
+        $.ajax({
+            url: svr_url + "index.php/sys/log?data=" + JSON.stringify(data), success: function (result) {
 
-            var json = JSON.parse(result);
-            console.log(result);
-            var status =  json.status;
-            var message =  json.message;
-            var uid =  json.userid;
+                var json = JSON.parse(result);
+                console.log(result);
+                var status = json.status;
+                var message = json.message;
+                var uid = json.userid;
 
-            if(status == "ERROR"){
+                if (status == "ERROR") {
 
-console.log(status+":-"+message);
+                    console.log(status + ":-" + message);
 
 
-            }else{
-                $.ajax({url: svr_url + "sys/save_login?data=" + result, success: function(result){
-                    var userID = result;
-                    window.location.href = '<?php echo base_url("dashboard")?>';
-                }});
+                } else {
+                    $.ajax({
+                        url: svr_url + "index.php/sys/save_login?data=" + result, success: function (result) {
+                            var userID = result;
+                                  //  alert(result);
+                            window.location.href = '<?php echo base_url("index.php/dashboard")?>';
+                        }
+                    });
 
+                }
             }
-        }});
+        });
     }
 
-
+    <?php
+    }
+    ?>
 
 </script>
-
-
-</body>
-
-</html>
