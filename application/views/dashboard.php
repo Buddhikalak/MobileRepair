@@ -203,7 +203,7 @@ if(isset($_SESSION['userID'])) {
 
 
     <?php
-
+require ("footer.php");
 
 }else{
 

@@ -25,8 +25,38 @@
 
     <!-- Custom Css -->
     <link href="<?php echo base_url()?>Asserts/css/style.css" rel="stylesheet">
+    <link href="<?php echo base_url()?>Asserts/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+
+
+    <link href="<?php echo base_url()?>Asserts/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="<?php echo base_url()?>Asserts/css/themes/all-themes.css" rel="stylesheet" />
+
+
+    <link href="<?php echo base_url()?>Asserts/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css" rel="stylesheet" />
+
+    <!-- Dropzone Css -->
+    <link href="<?php echo base_url()?>Asserts/plugins/dropzone/dropzone.css" rel="stylesheet">
+
+    <!-- Multi Select Css -->
+    <link href="<?php echo base_url()?>Asserts/plugins/multi-select/css/multi-select.css" rel="stylesheet">
+
+    <!-- Bootstrap Spinner Css -->
+    <link href="<?php echo base_url()?>Asserts/plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
+
+    <!-- Bootstrap Tagsinput Css -->
+    <link href="<?php echo base_url()?>Asserts/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+
+    <!-- Bootstrap Select Css -->
+    <link href="<?php echo base_url()?>Asserts/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+    <!-- noUISlider Css -->
+    <link href="<?php echo base_url()?>Asserts/plugins/nouislider/nouislider.min.css" rel="stylesheet" />
+    <link href="<?php echo base_url()?>Asserts/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+    <link href="<?php echo base_url()?>Asserts/plugins/waitme/waitMe.css" rel="stylesheet" />
+
+
+
 
 </head>
