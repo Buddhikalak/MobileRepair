@@ -39,4 +39,28 @@ class Customer_controller extends CI_Controller
 
     }
 
+    public function save_con_iss_types(){
+        $data = json_decode($_GET['data']);
+        $txt_issuetype = $data->txt_issuetype;
+        $this->load->model('customer');
+        $res=$this->customer->saveIssueTypeFun($txt_issuetype);
+        if($res){
+            $data = array(
+                'status' => "SUCESS",
+                'message' => "SAVED_ISSUE"
+
+            );
+            $returnVal = json_encode($data);
+            echo $returnVal;
+        }else{
+            $data = array(
+                'status' => "ERROR",
+                'message' => "NOT_SAVED_ISSUE"
+
+            );
+            $returnVal = json_encode($data);
+            echo $returnVal;
+        }
+    }
+
 }

@@ -15,4 +15,45 @@ class Jobs extends CI_Controller
         $this->load->view('createJob');
     }
 
+    public function savejob(){
+        $data = json_decode($_GET['data']);
+        $tittle=$data->tittle;
+        $sdes=$data->sdes;
+        $longdes=$data->longdes;
+        $customerd=$data->customerd;
+        $issuetype=$data->issuetype;
+        $issueDate=$data->issueDate;
+        $status=$data->status;
+        $commentss=$data->commentss;
+
+
+        date_default_timezone_set("Asia/Calcutta");
+        $date_created=date('Y-m-d H:i:s');
+        $this->load->model('jobsmodel');
+        $res=$this->jobsmodel->savingjobs($sdes,$longdes,$commentss,$issuetype,$customerd,$status,$date_created,$issueDate,$tittle);
+
+        if($res){
+            $data = array(
+                'status' => "SUCESS",
+                'message' => "SAVED_JOB"
+
+            );
+            $returnVal = json_encode($data);
+            echo $returnVal;
+        }else{
+            $data = array(
+                'status' => "ERROR",
+                'message' => "NOT_SAVED_JOB"
+
+            );
+            $returnVal = json_encode($data);
+            echo $returnVal;
+        }
+
+
+
+
+
+
+    }
 }

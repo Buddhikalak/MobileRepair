@@ -76,7 +76,7 @@ echo $_SESSION['user_email'];
                         </li>
 
                         <li class="">
-                            <a href="index.html" class="toggled waves-effect waves-block">
+                            <a href="<?php  echo base_url()?>index.php/parts/" class="toggled waves-effect waves-block">
                                 <i class="material-icons">developer_board</i>
                                 <span>Parts</span>
                             </a>
@@ -176,6 +176,38 @@ echo $_SESSION['user_email'];
     </div>
 </div>
 
+
+<!--issue type-->
+<div class="modal fade" id="issuetypemodel" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="issuetypemodel">Issue Type</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+
+
+                    <div class="form-group">
+                        <label>Type</label>
+                        <div class="form-line">
+                            <input type="text" id="txt_issuetype" class="form-control" placeholder="">
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="savetypes()" class="btn btn-primary waves-effect">SAVE TYPE</button>
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--/issue type-->
+
 <script>
     function saveCusto() {
         console.log("dddd");
@@ -214,5 +246,33 @@ echo $_SESSION['user_email'];
             });
         }
 
+
+        /*Save issue Type function*/
+
+
+        function savetypes() {
+            console.log("t6");
+            var svr_url = "<?php echo base_url()?>";
+           // var txt_issuetype=$(#txt_issuetype).val();
+            var data={txt_issuetype:$('#txt_issuetype').val()}
+            $.ajax({
+                url: svr_url + "index.php/Customer_controller/save_con_iss_types?data=" + JSON.stringify(data),
+                success: function (result) {
+
+                    var json = JSON.parse(result);
+                    console.log(result);
+
+                    var status = json.status;
+                    if (status == "SUCESS") {
+                        swal("Saved!", "Saved Customer !", "success")
+                    } else {
+                        swal("Error!", "Please Check Again!", "error")
+                    }
+
+
+                }
+            });
+
+        }
 
 </script>

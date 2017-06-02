@@ -79,19 +79,47 @@ require("slider.php");
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                     <div class="row-fluid" style="width: 100%">
-                                        <select class="selectpicker" style="width: 100%;" data-show-subtext="true" data-live-search="true">
-                                            <option data-subtext="Rep California">Tom Foolery</option>
-                                            <option data-subtext="Sen California">Bill Gordon</option>
-                                            <option data-subtext="Sen Massacusetts">Elizabeth Warren</option>
-                                            <option data-subtext="Rep Alabama">Mario Flores</option>
-                                            <option data-subtext="Rep Alaska">Don Young</option>
-                                            <option data-subtext="Rep California" disabled="disabled">Marvin Martinez</option>
+                                        <select id="customerd" class="selectpicker" style="width: 100%;" data-show-subtext="true" data-live-search="true">
+
+                                            <?php
+
+                                            try {
+                                                $query = $this->db->get('customer');
+                                            foreach ($query->result() as $row){ ?>
+                                                <option value="<?php echo $row->idcustomer ?>"><?php echo $row->firstname." ".$row->lastname ?></option>
+
+                                            <?php   }
+
+
+
+
+                                            } catch (Exception $e) {
+                                                echo 'Caught exception: ',  $e->getMessage(), "\n";
+                                            }
+
+
+
+                                            ?>
+
+
+
+
+
+
+
+
+
                                         </select>
+                                        <button type="button" data-toggle="modal" data-target="#customerModal" class="btn bg-purple waves-effect">
+                                            <i  style="position: static" class="material-icons">add</i>
+                                        </button>
                                    </div>
 
 
                         </div>
                     </div>
+
+
                         </div>
 
 
@@ -102,14 +130,28 @@ require("slider.php");
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="row-fluid" style="width: 100%">
-                                    <select class="selectpicker" style="width: 100%;" data-show-subtext="true" data-live-search="true">
-                                        <option data-subtext="Rep California">Tom Foolery</option>
-                                        <option data-subtext="Sen California">Bill Gordon</option>
-                                        <option data-subtext="Sen Massacusetts">Elizabeth Warren</option>
-                                        <option data-subtext="Rep Alabama">Mario Flores</option>
-                                        <option data-subtext="Rep Alaska">Don Young</option>
-                                        <option data-subtext="Rep California" disabled="disabled">Marvin Martinez</option>
+                                    <select id="issuetype" class="selectpicker" style="width: 100%;" data-show-subtext="true" data-live-search="true">
+
+                                        <?php
+
+                                        try {
+                                            $query = $this->db->get('issue_type');
+                                            foreach ($query->result() as $row){ ?>
+                                                <option value="<?php echo $row->idissue_type ?>"><?php echo $row->issue ?></option>
+
+                                            <?php   }
+                                        } catch (Exception $e) {
+                                            echo 'Caught exception: ',  $e->getMessage(), "\n";
+                                        }
+
+
+
+                                        ?>
+
                                     </select>
+                                    <button type="button" data-toggle="modal" data-target="#issuetypemodel"  class="btn bg-purple waves-effect">
+                                        <i  style="position: static" class="material-icons">add</i>
+                                    </button>
                                 </div>
 
 
@@ -126,11 +168,8 @@ require("slider.php");
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="date" class="datepicker form-control">
+                                    <input id="issueDate" type="date" class="datepicker form-control">
                                 </div>
-
-
-
                             </div>
                             </div>
                     </div>
@@ -143,7 +182,7 @@ require("slider.php");
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                         <div class="switch" style="margin-top: 10px">
-                            <label><input type="checkbox" checked=""><span class="lever switch-col-green"></span></label>
+                            <label><input type="checkbox" value="Pending"  id="status"><span class="lever switch-col-green"></span></label>
                         </div>
 </div></div>
 
@@ -157,7 +196,7 @@ require("slider.php");
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <textarea rows="4" class="form-control no-resize" id="longdes" placeholder="Comments"></textarea>
+                                    <textarea rows="4" class="form-control no-resize" id="commentss" placeholder="Comments"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -167,11 +206,61 @@ require("slider.php");
 
                     <div class="row clearfix">
                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                            <button type="button" class="btn btn-primary m-t-15 waves-effect">Create</button>
+                            <button type="button" onclick="savejob()" class="btn btn-primary m-t-15 waves-effect">Create</button>
                         </div>
                     </div>
 
                 </form>
+
+                <script>
+                    var svr_url = "<?php echo base_url()?>";
+
+
+                    function savejob() {
+
+                        var DOMTYU;
+                        if(document.getElementById('status').checked) {
+                            DOMTYU="1";
+                        } else {
+                            DOMTYU="0";
+                        }
+
+                        var data = {
+                            tittle: $('#tittle').val(),
+                            sdes: $('#sdes').val(),
+                            longdes: $('#longdes').val(),
+                            customerd: $('#customerd').val(),
+                            issuetype: $('#issuetype').val(),
+                            issueDate: $('#issueDate').val(),
+                            status: DOMTYU,
+                            commentss: $('#commentss').val()
+                        };
+                        console.log(data);
+                        $.ajax({
+                            url: svr_url + "index.php/Jobs/savejob?data=" + JSON.stringify(data),
+                            success: function (result) {
+
+                                var json = JSON.parse(result);
+                                console.log(result);
+
+                                var status = json.status;
+                                if (status == "SUCESS") {
+                                    swal("Saved!", "Saved Job !", "success")
+                                } else {
+                                    swal("Error!", "Please Check Again!", "error")
+                                }
+
+
+                            }
+                        });
+
+                    }
+
+
+
+                </script>
+
+
             </div>
         </div>
     </div>
