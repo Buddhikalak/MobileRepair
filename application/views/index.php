@@ -98,7 +98,7 @@ require("header.php");
 
                 } else {
                     $.ajax({
-                        url: svr_url + "index.php/sys/save_login?data=" + result, success: function (result) {
+                        url: svr_url + "index.php/Sys/save_login?data=" + result, success: function (result) {
                             var userID = result;
                                   //  alert(result);
                             window.location.href = '<?php echo base_url("index.php/dashboard")?>';

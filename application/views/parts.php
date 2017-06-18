@@ -196,7 +196,7 @@ if(isset($_SESSION['userID'])) {
                     };
                     console.log(data);
                     $.ajax({
-                        url: svr_url + "index.php/parts/savepart?data=" + JSON.stringify(data),
+                        url: svr_url + "index.php/Parts/savepart?data=" + JSON.stringify(data),
                         success: function (result) {
 
                             var json = JSON.parse(result);
