@@ -1,5 +1,6 @@
 <?php
 
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Created by PhpStorm.
  * User: Buddhika
@@ -9,6 +10,18 @@
 class sys extends CI_Controller
 {
 
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('User_login');
+        $this->load->library('session');
+    }
+
+    public function index(){
+
+    }
+
     function log(){
         $data = json_decode($_GET['data']);
         // get Data
@@ -16,8 +29,8 @@ class sys extends CI_Controller
         $password = $data->password;
         //$password = base64_encode($password);
 
-        $this->load->model('user');
-        $usernames = $this->user->CheckUserName($username);
+
+        $usernames = $this->User_login->CheckUserName($username);
         if ($usernames != false) {
             if($usernames->password == $password){
                       $data = array(
@@ -61,7 +74,7 @@ class sys extends CI_Controller
             $d = json_decode($data);
 
             echo $d->userid;
-            $this->load->library('session');
+
             $_SESSION['userID'] = $d->userid;
             $_SESSION['user_email'] = $d->user_email;
             $_SESSION['user_name'] = $d->user_name;

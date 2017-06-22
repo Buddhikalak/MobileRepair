@@ -29,8 +29,8 @@ class Jobs extends CI_Controller
 
         date_default_timezone_set("Asia/Calcutta");
         $date_created=date('Y-m-d H:i:s');
-        $this->load->model('jobsmodel');
-        $res=$this->jobsmodel->savingjobs($sdes,$longdes,$commentss,$issuetype,$customerd,$status,$date_created,$issueDate,$tittle);
+        $this->load->model('Jobsmodel');
+        $res=$this->Jobsmodel->savingjobs($sdes,$longdes,$commentss,$issuetype,$customerd,$status,$date_created,$issueDate,$tittle);
 
         if($res){
             $data = array(

@@ -6,7 +6,7 @@
  * Date: 5/30/2017
  * Time: 10:35 PM
  */
-class jobsmodel extends CI_Model
+class Jobsmodel extends CI_Model
 {
 
     public function savingjobs

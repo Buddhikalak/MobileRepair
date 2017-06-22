@@ -72,7 +72,7 @@ if(isset($_SESSION['userID'])) {
 
 
                                                 </select>
-                                                <button type="button" data-toggle="modal" data-target="" class="btn bg-purple waves-effect">
+                                                <button type="button" data-toggle="modal" data-target="#savebrand" class="btn bg-purple waves-effect">
                                                     <i  style="position: static" class="material-icons">add</i>
                                                 </button>
                                             </div>
@@ -111,7 +111,7 @@ if(isset($_SESSION['userID'])) {
                                                     ?>
 
                                                 </select>
-                                                <button type="button" data-toggle="modal" data-target="#"  class="btn bg-purple waves-effect">
+                                                <button type="button" data-toggle="modal" data-target="#SaveModels"  class="btn bg-purple waves-effect">
                                                     <i  style="position: static" class="material-icons">add</i>
                                                 </button>
                                             </div>

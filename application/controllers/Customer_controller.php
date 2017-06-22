@@ -15,8 +15,8 @@ class Customer_controller extends CI_Controller
         $phone = $data->phone_number;
         $email = $data->email;
         $address = $data->address;
-        $this->load->model('customer');
-        $res=$this->customer->saveCustomer($fname,$lname,$phone,$email,$address);
+        $this->load->model('Customer');
+        $res=$this->Customer->saveCustomer($fname,$lname,$phone,$email,$address);
 
         if($res){
             $data = array(
@@ -42,8 +42,8 @@ class Customer_controller extends CI_Controller
     public function save_con_iss_types(){
         $data = json_decode($_GET['data']);
         $txt_issuetype = $data->txt_issuetype;
-        $this->load->model('customer');
-        $res=$this->customer->saveIssueTypeFun($txt_issuetype);
+        $this->load->model('Customer');
+        $res=$this->Customer->saveIssueTypeFun($txt_issuetype);
         if($res){
             $data = array(
                 'status' => "SUCESS",

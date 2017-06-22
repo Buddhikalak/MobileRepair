@@ -82,8 +82,10 @@ require("header.php");
             password: $('#password').val()
         };
         var svr_url = "<?php echo base_url()?>";
+            console.log(svr_url);
         $.ajax({
-            url: svr_url + "index.php/sys/log?data=" + JSON.stringify(data), success: function (result) {
+
+            url: svr_url + "index.php/Sys/log?data=" + JSON.stringify(data), success: function (result) {
 
                 var json = JSON.parse(result);
                 console.log(result);

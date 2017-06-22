@@ -208,6 +208,80 @@ echo $_SESSION['user_email'];
 </div>
 <!--/issue type-->
 
+<!--brand-->
+<div class="modal fade" id="savebrand" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="savebrand">Mobile Brand</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+
+
+                    <div class="form-group">
+                        <label>Brand Name</label>
+                        <div class="form-line">
+                            <input type="text" id="brand_name" class="form-control" placeholder="">
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="SaveBrand()" class="btn btn-primary waves-effect">SAVE BRAND</button>
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--/brand-->
+
+
+<!--save models-->
+<div class="modal fade" id="SaveModels" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="SaveModels">Models</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+
+
+                    <div class="form-group">
+                        <label>Model</label>
+                        <div class="form-line">
+                            <input type="text" id="SaveModels_txt" class="form-control" placeholder="">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Model Code</label>
+                        <div class="form-line">
+                            <input type="text" id="modelcode" class="form-control" placeholder="">
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="save_Modelx()" class="btn btn-primary waves-effect">SAVE MODEL</button>
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--/save models-->
+
+
+
 <script>
     function saveCusto() {
         console.log("dddd");
@@ -245,12 +319,7 @@ echo $_SESSION['user_email'];
                 }
             });
         }
-
-
-        /*Save issue Type function*/
-
-
-        function savetypes() {
+    function savetypes() {
             console.log("t6");
             var svr_url = "<?php echo base_url()?>";
            // var txt_issuetype=$(#txt_issuetype).val();
@@ -274,5 +343,52 @@ echo $_SESSION['user_email'];
             });
 
         }
+    function SaveBrand(){
+        var svr_url = "<?php echo base_url()?>";
+        // var txt_issuetype=$(#txt_issuetype).val();
+        var data={brand:$('#brand_name').val()}
+        $.ajax({
+            url: svr_url + "index.php/Parts/Save_Brand?data=" + JSON.stringify(data),
+            success: function (result) {
+
+                var json = JSON.parse(result);
+                console.log(result);
+
+                var status = json.status;
+                if (status == "SUCESS") {
+                    swal("Saved!", "Saved Customer !", "success")
+                                    } else {
+                    swal("Error!", "Please Check Again!", "error")
+                }
+
+
+            }
+        });
+    }
+    function save_Modelx(){
+        var svr_url = "<?php echo base_url()?>";
+        // var txt_issuetype=$(#txt_issuetype).val();
+        var data={
+            model:$('#SaveModels_txt').val(),
+            code:$('#modelcode').val()
+        }
+        $.ajax({
+            url: svr_url + "index.php/Parts/save_models?data=" + JSON.stringify(data),
+            success: function (result) {
+
+                var json = JSON.parse(result);
+                console.log(result);
+
+                var status = json.status;
+                if (status == "SUCESS") {
+                    swal("Saved!", "Saved Customer !", "success")
+                } else {
+                    swal("Error!", "Please Check Again!", "error")
+                }
+
+
+            }
+        });
+    }
 
 </script>

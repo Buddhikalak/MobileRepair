@@ -23,8 +23,8 @@ class parts extends CI_Controller
         $pcode=$data->pcode;
         $pcost=$data->pcost;
 
-        $this->load->model('partmodel');
-        $res=$this->partmodel->insertItem($brand,$bmodel,$pname,$pcode,$pcost);
+        $this->load->model('Partmodel');
+        $res=$this->Partmodel->insertItem($brand,$bmodel,$pname,$pcode,$pcost);
 
         if($res){
             $data = array(
@@ -38,6 +38,58 @@ class parts extends CI_Controller
             $data = array(
                 'status' => "ERROR",
                 'message' => "NOT_SAVED_JOB"
+
+            );
+            $returnVal = json_encode($data);
+            echo $returnVal;
+        }
+
+    }
+
+    Public function Save_Brand(){
+        $data = json_decode($_GET['data']);
+        $brand=$data->brand;
+        $this->load->model('Partmodel');
+        $res=$this->Partmodel->insertBrand($brand);
+        if($res){
+            $data = array(
+                'status' => "SUCESS",
+                'message' => "SAVED_BRAND"
+
+            );
+            $returnVal = json_encode($data);
+            echo $returnVal;
+        }else{
+            $data = array(
+                'status' => "ERROR",
+                'message' => "NOT_SAVED_BRAND"
+
+            );
+            $returnVal = json_encode($data);
+            echo $returnVal;
+        }
+    }
+
+    public function save_models(){
+
+
+        $data = json_decode($_GET['data']);
+        $model=$data->model;
+        $code=$data->code;
+        $this->load->model('Partmodel');
+        $res=$this->Partmodel->insertmodels($model,$code);
+        if($res){
+            $data = array(
+                'status' => "SUCESS",
+                'message' => "SAVED_MODEL"
+
+            );
+            $returnVal = json_encode($data);
+            echo $returnVal;
+        }else{
+            $data = array(
+                'status' => "ERROR",
+                'message' => "NOT_SAVED_MODEL"
 
             );
             $returnVal = json_encode($data);

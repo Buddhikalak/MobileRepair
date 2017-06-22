@@ -6,7 +6,7 @@
  * Date: 5/28/2017
  * Time: 10:07 PM
  */
-class customer extends CI_Model
+class Customer extends CI_Model
 {
  public function saveCustomer($firstname, $lastname, $phonenumber, $email, $address){
      $this->load->database();
