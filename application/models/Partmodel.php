@@ -37,4 +37,20 @@ public function insertBrand($brand){
             return FALSE;
     }
 
+
+    public function getpartsmodel($modelid){
+        $this->load->database();
+        $query = $this->db->query("SELECT * FROM parts WHERE model_id='".$modelid."'");
+        return $query->result();
+    }
+
+    public function removeparts($TTPID){
+        $this->load->database();
+        $query = $this->db->query("DELETE FROM ticket_has_parts WHERE tptid = '".$TTPID."' ;");
+        if (!$this->db->affected_rows())
+            return FALSE;
+        else
+            return TRUE;
+
+    }
 }

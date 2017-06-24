@@ -6,7 +6,7 @@
  * Date: 6/2/2017
  * Time: 9:48 AM
  */
-class parts extends CI_Controller
+class Parts extends CI_Controller
 
 {
 
@@ -90,6 +90,45 @@ class parts extends CI_Controller
             $data = array(
                 'status' => "ERROR",
                 'message' => "NOT_SAVED_MODEL"
+
+            );
+            $returnVal = json_encode($data);
+            echo $returnVal;
+        }
+
+    }
+
+
+    function getpartsUsingmodelid(){
+        $data = json_decode($_GET['data']);
+        $modelid=$data->modelid;
+        $this->load->model('Partmodel');
+        $res=$this->Partmodel->getpartsmodel($modelid);
+        $returnVal = json_encode($res);
+        echo $returnVal;
+
+    }
+
+    function partRemove($ttpid){
+        $this->load->model('Partmodel');
+        $res=$this->Partmodel->removeparts($ttpid);
+        if($res){
+
+            $data = array(
+                'status' => "ERROR",
+                'message' => "NOT_DELETE_PART"
+
+            );
+            $returnVal = json_encode($data);
+            echo $returnVal;
+
+            header( "Location:".base_url("index.php/dashboard"));
+
+        }else{
+
+            $data = array(
+                'status' => "SUCESS",
+                'message' => "DELETED PART"
 
             );
             $returnVal = json_encode($data);

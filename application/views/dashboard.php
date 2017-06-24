@@ -128,9 +128,17 @@ $A=$row->A;
                                     $this->load->database();
                                     $query = $this->db->query("SELECT customer.firstname , customer.lastname , issue_type.issue , ticket.tittle , ticket.short_description , ticket.date_created , ticket.date_toissue , ticket.stats , ticket.idticket FROM issue_type INNER JOIN ticket ON (issue_type.idissue_type = ticket.issue_type_idissue_type) INNER JOIN customer ON (customer.idcustomer = ticket.customer_idcustomer) WHERE ticket.stats='0';");
                                     foreach ($query->result() as $row) {
+                                        $data = array('idticket'=>$row->idticket);
+                                        $v = json_encode($data);
                                     ?>
                                     <tr>
-                                        <td> <?php  echo $row->idticket?> </td>
+
+
+
+
+
+
+                                        <td> <a href="<?php echo base_url('index.php/Jobs/viewEditJobPage/'.$row->idticket) ?>"><?php  echo $row->idticket ?></a>  </td>
                                         <td><?php echo $row->firstname?></td>
                                         <td><?php echo $row->lastname?></td>
                                         <td><?php echo $row->issue?></td>
@@ -138,7 +146,16 @@ $A=$row->A;
                                         <td><?php echo $row->short_description?></td>
                                         <td><?php echo $row->date_created?></td>
                                         <td><?php echo $row->date_toissue?></td>
-                                        <td><?php echo $row->stats?></td>
+                                        <td>
+
+                                        <?php
+
+                                        if ($row->stats=='0')
+                                            echo 'Inprogress';
+
+                                            ?>
+
+                                            </td>
 
                                     </tr>
 
